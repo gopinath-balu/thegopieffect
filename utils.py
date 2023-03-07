@@ -6,7 +6,7 @@ import pandas as pd
 from pathlib import Path
 from typing import Union
 
-def parse_entities(data: str, entity: Union[str, list]) -> list:
+def parse_entities(data: str, entity: Union[str, list] = 'All') -> list:
     """Parse given entities from the data
         unique_entities = {'ACUITY', 'BRAND_NAME', 'DIAGNOSIS', 
                            'DIRECTION', 'DOSAGE', 'DURATION',
@@ -17,11 +17,9 @@ def parse_entities(data: str, entity: Union[str, list]) -> list:
                            'TEST_NAME', 'TEST_UNIT', 
                            'TEST_VALUE', 'TREATMENT_NAME'
                           }
-
     Args:
         data (str): Textual data to be parsed entities
         entity (Union[str, list]): Entity which needs to be parsed
-
     Returns:
         list: List of parsed entities
     """
@@ -37,18 +35,24 @@ def parse_entities(data: str, entity: Union[str, list]) -> list:
     
     assert isinstance(entities, list)
     
-    data = f'{{"text": "{sample_text}"}}'
-    response = requests.post(MODEL_URL, headers=HEADERS, data=data)
+    data = f'{{"text": "{data}"}}'
+    response = requests.post(MODEL_URL, headers=HEADERS, data=data.encode('utf-8'))
     model_resp = response.json()
 
     if 'error' not in model_resp.keys():
         result = model_resp['result']
-        for ent in entities:
-            ent_list = list()
-            for item in result:
-                if item[1] == ent:
-                    ent_list.append(item[0])
-            return_dict[ent] = ent_list
+        if set(entities) == {'All'}:
+            for term, ent in result:
+                return_dict.setdefault(ent, []).append((term))
+            del return_dict['O']
+            return return_dict
+        else:
+            for ent in entities:
+                ent_list = list()
+                for item in result:
+                    if item[1] == ent:
+                        ent_list.append(item[0])
+                return_dict[ent] = ent_list
         return return_dict
     else:
-        raise Exception('Error in CliNER service, check!')  
+        raise Exception('Error in CliNER service, check!')
