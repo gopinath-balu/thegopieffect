@@ -6,6 +6,8 @@ import pandas as pd
 from pathlib import Path
 from typing import Union
 
+#Python #NLP #NER #Nifty
+
 def parse_entities(data: str, entity: Union[str, list] = 'All') -> list:
     """Parse given entities from the data
         unique_entities = {'ACUITY', 'BRAND_NAME', 'DIAGNOSIS', 
@@ -56,3 +58,36 @@ def parse_entities(data: str, entity: Union[str, list] = 'All') -> list:
         return return_dict
     else:
         raise Exception('Error in CliNER service, check!')
+        
+        
+#Python #Core #List #Grouping
+
+def group_list_on_keys(list_of_lists: list[list]) -> dict:
+    """Group list of lists based on a given key in the element of list
+        #input
+        data=[
+                ['Sarah',  '12', 'Chocolate'],
+                ['Anders', '11', 'Vanilla'],
+                ['Sarah',  '13', 'Strawberry'],
+                ['John',   '11', 'None']
+              ]
+        #output
+        {
+         'Sarah': [('12', 'Chocolate'), ('13', 'Strawberry')], 
+         'Anders': [('11', 'Vanilla')], 
+         'John': [('11', 'None')]
+        }
+
+    Args:
+        list_of_lists (list[list]): Given input list of list
+
+    Returns:
+        dict: Grouped output based on one key
+    """
+
+    grouped = {}
+
+    for name, x, y in data:
+        grouped.setdefault(name, []).append((x,y))
+
+    return grouped
