@@ -6,7 +6,7 @@ import requests
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from typing import Union
+from typing import Any, Union
 
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem import WordNetLemmatizer, PorterStemmer
@@ -128,3 +128,24 @@ def group_list_on_keys(list_of_lists: list[list]) -> dict:
         grouped.setdefault(name, []).append((x,y))
 
     return grouped
+
+#Python #Core #Dictionary #Variable
+def dict_from_var(variable: str, default_value: Any) -> dict:
+    """Create dictionary from the given variable name
+    and sets the default given value
+
+    Args:
+        variable_ (str): Variable name but it's value will 
+        be used for dictionary name
+        default_value (Any): Default value for the dictionary 
+        to be created
+
+    Returns:
+        dict: Created dictionary and it's value
+    """
+
+    dictionary = {}
+    dictionary[variable] = default_value
+    globals()[variable] = dictionary
+
+    print(f"Dictionary created in the name of '{variable}' with values '{default_value}' in it")
