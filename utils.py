@@ -149,3 +149,6 @@ def dict_from_var(variable: str, default_value: Any) -> dict:
     globals()[variable] = dictionary
 
     print(f"Dictionary created in the name of '{variable}' with values '{default_value}' in it")
+
+#Python #Core #Dir #nifty
+create_dir = lamdba x: Path(x).mkdir(parents=True, exist_ok=True)
