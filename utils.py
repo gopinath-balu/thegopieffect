@@ -152,3 +152,20 @@ def dict_from_var(variable: str, default_value: Any) -> dict:
 
 #Python #Core #Dir #nifty
 create_dir = lambda x: Path(x).mkdir(parents=True, exist_ok=True)
+
+#Python #Core #Unzip #Dir #nifty
+def unzip_alldir(dir_name: str, extention: str) -> None:
+    """Unzips all zip files in the given directory
+
+    Args:
+        dir_name (str): Zipped files data path
+        extention (str): Extension types, only zip is allowed now
+    """
+
+for item in os.listdir(dir_name): 
+    if item.endswith(extension): 
+        file_name = dir_name + "/" + item
+        zip_ref = zipfile.ZipFile(file_name) 
+        zip_ref.extractall(os.path.join(dir_name, item[:-4])) 
+        zip_ref.close()
+        os.remove(file_name)
