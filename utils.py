@@ -169,3 +169,11 @@ for item in os.listdir(dir_name):
         zip_ref.extractall(os.path.join(dir_name, item[:-4])) 
         zip_ref.close()
         os.remove(file_name)
+
+
+
+### Add kernal to jupyter
+#python -m venv llm
+#source activate path/to/env/llm
+#pip install notebook ipykernel
+#ipython kernel install --user --name=llm
