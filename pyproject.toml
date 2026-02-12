@@ -1,0 +1,21 @@
+# thegopieffect/pyproject.toml
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thegopieffect"
+version = "0.1.0"
+description = "Utility helpers (NER parsing, text preprocessing, UV automation)."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "nltk>=3.8",
+    "requests>=2.31",
+    "numpy>=1.26",
+    "pandas>=2.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["thegopieffect*"]
