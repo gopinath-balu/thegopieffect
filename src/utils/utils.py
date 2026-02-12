@@ -170,7 +170,8 @@ for item in os.listdir(dir_name):
         zip_ref.close()
         os.remove(file_name)
 
-
+#Python #LLM #Parsing #nifty
+strip_code_fences = re.sub(r"```(?:json)?\s*", "", text).strip().rstrip("`")
 
 ### Add kernal to jupyter
 #python -m venv llm
